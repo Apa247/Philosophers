@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/14 22:35:25 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:52:25 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ int	ft_atoi_p(char *str)
 		i++;
 	}
 	return ((int)(valor * signo));
+}
+
+void	ft_free(t_data *data)
+{
+	free(data->forks);
+	free(data->philosophers);
+	free(data->philo);
 }
