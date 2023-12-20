@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/19 21:39:57 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:42:00 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ typedef struct data
 	t_philo				*philo;
 }	t_data;
 
-int		check_args(int ac, char **av);
-int		ft_atoi_p(char *str);
-int		innit_data(t_data *data, char **av, int ac);
-void	ft_free(t_data *data);
-int		init_philo_params(t_data data, int ac, char **av, int i);
+int			check_args(int ac, char **av);
+int			ft_atoi_p(char *str);
+int			innit_data(t_data *data, char **av, int ac);
+void		ft_free(t_data *data);
+int			create_threads(t_data *data, char **av);
+int			init_philo_params(t_data *data, char **av, int i);
+long long	ft_get_time(void);
 
 #endif
