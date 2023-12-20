@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/20 21:42:29 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:59:24 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ long long	ft_get_time(void)
 {
 	struct timeval	current_time;
 
-	if (!gettimeoday(&current_time, NULL))
-		return (0);
+	if (gettimeofday(&current_time, NULL))
+		return (-1);
 	else
 		return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
@@ -42,7 +42,8 @@ int	innit_data(t_data *data, char **av, int ac)
 	if (ac == 6)
 		data->lunchs_nb = ft_atoi_p(av[5]) * data->philos_nb;
 	data->star_time = ft_get_time();
-	if (!data->star_time)
+	printf("%lld\n", data->star_time);
+	if (data->star_time == -1)
 		return (0);
 	return (1);
 }
@@ -64,9 +65,6 @@ int	check_args(int ac, char **av)
 				return (0);
 		}
 	}
-	if (!ft_atoi_p(av[1]) || !ft_atoi_p(av[2]) || !ft_atoi_p(av[3])
-		|| !ft_atoi_p(av[4]))
-		return (0);
 	if (ac == 6)
 	{
 		if (!ft_atoi_p(av[5]))
@@ -130,11 +128,11 @@ int	main(int ac, char **av)
 	atexit(func);
 	i = 0;
 	if (!check_args(ac, av))
-		return (printf("Error\n"));
-	if (!innit_data(&data, av, ac))
+		return (printf("Error\n"), 1);
+	if (!innit_data(&data, av, ac), 1)
 		return (printf("Malloc Error\n"));
 	if (!create_threads(&data, av))
-		return (ft_free(&data), 0);
+		return (ft_free(&data), 1);
 	while (i < data.philos_nb)
 	{
 		pthread_join(data.philosophers[i], NULL);
