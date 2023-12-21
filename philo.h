@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/20 21:42:00 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:37:39 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct philo
 	int					*stop;
 	int					*lunchs_nb;
 	int					time_fork;
-	int					*dat;
+	pthread_mutex_t		right_fork;
+	pthread_mutex_t		left_fork;
 	pthread_mutex_t		*print_lock;
 }	t_philo;
 
@@ -52,5 +53,8 @@ void		ft_free(t_data *data);
 int			create_threads(t_data *data, char **av);
 int			init_philo_params(t_data *data, char **av, int i);
 long long	ft_get_time(void);
+void		*rutine(void *arg);
+void		father_loop(t_data *data);
+int			check_death(t_data *data);
 
 #endif

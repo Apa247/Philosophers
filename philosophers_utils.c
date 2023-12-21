@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
+/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/21 13:36:08 by davidaparic      ###   ########.fr       */
+/*   Updated: 2023/12/21 19:03:19 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
