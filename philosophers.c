@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/21 20:36:05 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:45:10 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,26 @@ void	*rutine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->print_lock);
 	pthread_mutex_unlock(philo->print_lock);
-	while (1)
+	while (*philo->lunchs_nb > 0 || *philo->stop == 0)
 	{
 		usleep(200);
-		if (*philo->lunchs_nb == 0 || *philo->stop == 1)
+		if (*philo->lunchs_nb > 0 || *philo->stop == 0)
+		{
+			pthread_mutex_lock(philo->print_lock);
+			printf("philosopher %i eat in number %i\n", philo->id, *philo->lunchs_nb);
+			*philo->lunchs_nb = *philo->lunchs_nb - 1;
+			pthread_mutex_unlock(philo->print_lock);
+			usleep(200);
+		}
+		else
 			return (NULL);
-		pthread_mutex_lock(philo->print_lock);
-		printf("philosopher %i eat in number %i\n", philo->id, *philo->lunchs_nb);
-		*philo->lunchs_nb = *philo->lunchs_nb - 1;
-		pthread_mutex_unlock(philo->print_lock);
-		usleep(200);
 	}
 	return (NULL);
 }
 
 int	check_death(t_data *data)
 {
-	if (data->lunchs_nb == 0)
+	if (data->lunchs_nb > 0)
 	{
 		data->stop = 1;
 		return (0);
