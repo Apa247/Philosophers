@@ -3,14 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/20 20:40:11 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:36:08 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+long long	ft_get_time(void)
+{
+	struct timeval	current_time;
+
+	if (gettimeofday(&current_time, NULL))
+		return (-1);
+	else
+		return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}
+
+int	check_args(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (ac < 5 || ac > 6)
+		return (0);
+	while (++i < ac)
+	{
+		j = -1;
+		while (av[i][++j])
+		{
+			if (av[i][j] < '0' || av[i][j] > '9')
+				return (0);
+		}
+	}
+	if (ac == 6)
+	{
+		if (!ft_atoi_p(av[5]))
+			return (0);
+	}
+	return (1);
+}
 
 int	ft_atoi_p(char *str)
 {

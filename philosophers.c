@@ -6,21 +6,11 @@
 /*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/20 23:59:24 by davidaparic      ###   ########.fr       */
+/*   Updated: 2023/12/21 13:40:08 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long long	ft_get_time(void)
-{
-	struct timeval	current_time;
-
-	if (gettimeofday(&current_time, NULL))
-		return (-1);
-	else
-		return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
-}
 
 int	innit_data(t_data *data, char **av, int ac)
 {
@@ -48,31 +38,6 @@ int	innit_data(t_data *data, char **av, int ac)
 	return (1);
 }
 
-int	check_args(int ac, char **av)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (ac < 5 || ac > 6)
-		return (0);
-	while (++i < ac)
-	{
-		j = -1;
-		while (av[i][++j])
-		{
-			if (av[i][j] < '0' || av[i][j] > '9')
-				return (0);
-		}
-	}
-	if (ac == 6)
-	{
-		if (!ft_atoi_p(av[5]))
-			return (0);
-	}
-	return (1);
-}
-
 int	init_philo_params(t_data *data, char **av, int i)
 {
 	if (pthread_mutex_init(&data->forks[i], NULL))
@@ -83,6 +48,7 @@ int	init_philo_params(t_data *data, char **av, int i)
 	data->philo[i].t_to_sleep = ft_atoi_p(av[4]);
 	data->philo[i].print_lock = data->print_lock;
 	data->philo[i].stop = &data->stop;
+	data->philo[i].lunchs_nb = &data->lunchs_nb;
 	
 	return (1);
 }
