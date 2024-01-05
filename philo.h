@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/21 20:37:39 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:40:46 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ typedef struct philo
 	int					id;
 	int					t_to_die;
 	int					t_to_eat;
-	int					t_to_sleep;
+	int					t_sleeping;
 	int					*stop;
 	int					*lunchs_nb;
-	int					time_fork;
-	pthread_mutex_t		right_fork;
-	pthread_mutex_t		left_fork;
+	int					last_lunch;
+	int					star_time;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*print_lock;
+	pthread_mutex_t		*philo_action;
 }	t_philo;
 
 typedef struct data
@@ -43,6 +45,7 @@ typedef struct data
 	pthread_t			*philosophers;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*print_lock;
+	pthread_mutex_t		*philo_action;
 	t_philo				*philo;
 }	t_data;
 
@@ -54,7 +57,10 @@ int			create_threads(t_data *data, char **av);
 int			init_philo_params(t_data *data, char **av, int i);
 long long	ft_get_time(void);
 void		*rutine(void *arg);
+void		ft_sleep(int time);
+void		ft_print(t_philo *philo, char *str);
 void		father_loop(t_data *data);
 int			check_death(t_data *data);
+int			ft_strlen(char *str);
 
 #endif

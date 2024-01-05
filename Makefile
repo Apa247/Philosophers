@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: daparici <daparici@student.42.fr>          +#+  +:+       +#+         #
+#    By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/14 18:53:26 by daparici          #+#    #+#              #
-#    Updated: 2023/12/14 22:23:02 by daparici         ###   ########.fr        #
+#    Updated: 2024/01/05 21:43:17 by davidaparic      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = gcc -Wall -Wextra -Werror
 RM = rm -rf
-SRC = philosophers.c philosophers_utils.c
+SRC = philosophers.c philosophers_utils.c philo_actions.c
 
 OBJ = $(SRC:.c=.o)
 

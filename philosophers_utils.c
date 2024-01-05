@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/21 19:03:19 by daparici         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:18:44 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	check_args(int ac, char **av)
 				return (0);
 		}
 	}
+	if (ft_atoi_p(av[1]) <= 0 || ft_atoi_p(av[1]) > 200)
+		return (0);
 	if (ac == 6)
 	{
 		if (!ft_atoi_p(av[5]))
@@ -82,4 +84,16 @@ void	ft_free(t_data *data)
 	free(data->philosophers);
 	free(data->philo);
 	free(data->print_lock);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
 }
