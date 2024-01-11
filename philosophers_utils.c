@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 19:51:57 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:34:57 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	ft_free(t_data *data)
 	free(data->philosophers);
 	free(data->philo);
 	free(data->print_lock);
+	free(data->philo_action);
+	
 }
 
 int	ft_strlen(char *str)

@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 20:26:00 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:39:52 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,17 +131,17 @@ void	father_loop(t_data *data)
 	}
 }
 
-// void	func(void)
-// {
-// 	system("leaks philo");
-// }
+void	func(void)
+{
+	system("leaks philo");
+}
 
 int	main(int ac, char **av)
 {
 	t_data	data;
 	int		i;
 
-	//atexit(func);
+	atexit(func);
 	i = 0;
 	if (!check_args(ac, av))
 		return (printf("Error\n"), 1);
@@ -156,6 +156,8 @@ int	main(int ac, char **av)
 		pthread_mutex_destroy(&data.forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(data.print_lock);
+	pthread_mutex_destroy(data.philo_action);
 	ft_free(&data);
 	return (0);
 }
