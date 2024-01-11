@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 20:39:52 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:00:30 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ int	innit_data(t_data *data, char **av, int ac)
 		return (free(data->forks), free(data->philo),
 			free(data->philosophers), free(data->philo_action), 0);
 	data->stop = 0;
-	if (ac == 6)
-		data->lunchs_nb = ft_atoi_p(av[5]) * data->philos_nb;
-	else
-		data->lunchs_nb = -1;
 	data->star_time = ft_get_time();
 	if (data->star_time == -1)
 		return (0);
@@ -63,6 +59,7 @@ int	init_philo_params(t_data *data, char **av, int i)
 	data->philo[i].right_fork = &data->forks[i];
 	return (1);
 }
+
 int	create_threads(t_data *data, char **av)
 {
 	int	i;
@@ -78,7 +75,7 @@ int	create_threads(t_data *data, char **av)
 		if (!init_philo_params(data, av, i))
 			return (0);
 		if (pthread_create(&data->philosophers[i], NULL,
-			rutine, &data->philo[i]) < 0)
+				rutine, &data->philo[i]) < 0)
 			return (0);
 		i++;
 	}
@@ -86,33 +83,9 @@ int	create_threads(t_data *data, char **av)
 	return (1);
 }
 
-int	check_death(t_data *data, int i)
-{
-	long long ac_time;
-	
-	ac_time = ft_get_time() - data->star_time;
-	if ((ac_time - data->philo[i].last_lunch) > data->philo[i].t_to_die)
-	{
-		pthread_mutex_lock(data->print_lock);
-		printf("%lldms philosopher %d has died\n", ac_time, data->philo[i].id);
-		data->stop = 1;
-		pthread_mutex_unlock(data->print_lock);
-		pthread_mutex_unlock(data->philo[i].left_fork);
-		return (0);
-	}
-	if (data->lunchs_nb == 0)
-	{
-		pthread_mutex_lock(data->print_lock);
-		data->stop = 1;
-		pthread_mutex_unlock(data->print_lock);
-		return (0);
-	}
-	return (1);
-}
-
 void	father_loop(t_data *data)
 {
-	int i;
+	int	i;
 
 	while (1)
 	{
@@ -127,37 +100,30 @@ void	father_loop(t_data *data)
 			}
 			pthread_mutex_unlock(data->philo[i].philo_action);
 		}
-			
 	}
 }
 
-void	func(void)
-{
-	system("leaks philo");
-}
+// void	func(void)
+// {
+// 	system("leaks philo");
+// }
 
 int	main(int ac, char **av)
 {
 	t_data	data;
-	int		i;
 
-	atexit(func);
-	i = 0;
+	//atexit(func);
 	if (!check_args(ac, av))
 		return (printf("Error\n"), 1);
 	if (!innit_data(&data, av, ac))
 		return (printf("Malloc Error\n"), 1);
+	if (ac == 6)
+		data->lunchs_nb = ft_atoi_p(av[5]) * data->philos_nb;
+	else
+		data->lunchs_nb = -1;
 	if (!create_threads(&data, av))
 		return (ft_free(&data), 1);
 	father_loop(&data);
-	while (i < data.philos_nb)
-	{
-		pthread_join(data.philosophers[i], NULL);
-		pthread_mutex_destroy(&data.forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(data.print_lock);
-	pthread_mutex_destroy(data.philo_action);
 	ft_free(&data);
 	return (0);
 }

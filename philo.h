@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 19:56:03 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:56:21 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void		ft_free(t_data *data);
 int			create_threads(t_data *data, char **av);
 int			init_philo_params(t_data *data, char **av, int i);
 long long	ft_get_time(void);
-void		*rutine(void *arg);
+void		*ft_philo_rutine(void *arg);
+void		ft_philo_rutine_actions(t_philo *philo);
 void		ft_sleep(int time);
 void		ft_print(t_philo *philo, char *str);
 void		father_loop(t_data *data);
