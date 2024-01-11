@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
+/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2023/12/23 02:18:44 by davidaparic      ###   ########.fr       */
+/*   Updated: 2024/01/11 19:51:57 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ long long	ft_get_time(void)
 {
 	struct timeval	current_time;
 
-	if (gettimeofday(&current_time, NULL))
-		return (-1);
-	else
-		return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
 int	check_args(int ac, char **av)

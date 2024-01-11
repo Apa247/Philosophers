@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
+/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/05 21:40:46 by davidaparic      ###   ########.fr       */
+/*   Updated: 2024/01/11 19:56:03 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct philo
 	int					*stop;
 	int					*lunchs_nb;
 	int					last_lunch;
-	int					star_time;
+	long long			star_time;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*print_lock;
@@ -60,7 +60,7 @@ void		*rutine(void *arg);
 void		ft_sleep(int time);
 void		ft_print(t_philo *philo, char *str);
 void		father_loop(t_data *data);
-int			check_death(t_data *data);
+int			check_death(t_data *data, int i);
 int			ft_strlen(char *str);
 
 #endif

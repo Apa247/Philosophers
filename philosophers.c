@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
+/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/05 22:11:55 by davidaparic      ###   ########.fr       */
+/*   Updated: 2024/01/11 20:26:00 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	innit_data(t_data *data, char **av, int ac)
 	data->stop = 0;
 	if (ac == 6)
 		data->lunchs_nb = ft_atoi_p(av[5]) * data->philos_nb;
+	else
+		data->lunchs_nb = -1;
 	data->star_time = ft_get_time();
 	if (data->star_time == -1)
 		return (0);
@@ -84,33 +86,46 @@ int	create_threads(t_data *data, char **av)
 	return (1);
 }
 
-int	check_death(t_data *data)
+int	check_death(t_data *data, int i)
 {
-	if (data->lunchs_nb <= 0)
+	long long ac_time;
+	
+	ac_time = ft_get_time() - data->star_time;
+	if ((ac_time - data->philo[i].last_lunch) > data->philo[i].t_to_die)
 	{
+		pthread_mutex_lock(data->print_lock);
+		printf("%lldms philosopher %d has died\n", ac_time, data->philo[i].id);
 		data->stop = 1;
+		pthread_mutex_unlock(data->print_lock);
+		pthread_mutex_unlock(data->philo[i].left_fork);
 		return (0);
 	}
-	else
-		return (1);
+	if (data->lunchs_nb == 0)
+	{
+		pthread_mutex_lock(data->print_lock);
+		data->stop = 1;
+		pthread_mutex_unlock(data->print_lock);
+		return (0);
+	}
+	return (1);
 }
 
 void	father_loop(t_data *data)
 {
+	int i;
+
 	while (1)
 	{
-		pthread_mutex_lock(data->philo_action);
-		pthread_mutex_lock(data->print_lock);
-		if (!check_death(data))
+		i = -1;
+		while (++i < data->philos_nb)
 		{
-			pthread_mutex_unlock(data->print_lock);
-			pthread_mutex_unlock(data->philo_action);
-			return ;
-		}
-		else
-		{
-			pthread_mutex_unlock(data->print_lock);
-			pthread_mutex_unlock(data->philo_action);
+			pthread_mutex_lock(data->philo[i].philo_action);
+			if (!check_death(data, i))
+			{
+				pthread_mutex_unlock(data->philo[i].philo_action);
+				return ;
+			}
+			pthread_mutex_unlock(data->philo[i].philo_action);
 		}
 			
 	}

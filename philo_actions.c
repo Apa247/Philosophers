@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
+/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 21:41:31 by davidaparic       #+#    #+#             */
-/*   Updated: 2024/01/05 22:15:23 by davidaparic      ###   ########.fr       */
+/*   Updated: 2024/01/11 20:26:35 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_print(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(philo->print_lock);
 	if (*philo->stop == 0)
-		printf("%lldms philosopher %i %s\n", ft_get_time() - philo->star_time, philo->id, str);
+		printf("%lldms philosopher %i %s\n", ft_get_time()  - philo->star_time, philo->id, str);
 	pthread_mutex_unlock(philo->print_lock);
 }
 
@@ -56,10 +56,7 @@ void	*rutine(void *arg)
 		ft_print(philo, "is eating");
 		if (*philo->lunchs_nb > 0)
 			*philo->lunchs_nb = *philo->lunchs_nb - 1;
-		else
-			break ;
 		pthread_mutex_unlock(philo->philo_action);
-		//printf("comidas: %i\n", *philo->lunchs_nb);
 		ft_sleep(philo->t_to_eat);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -68,5 +65,6 @@ void	*rutine(void *arg)
 		ft_print(philo, "is thinking");
 		pthread_mutex_lock(philo->print_lock);
 	}
+	pthread_mutex_unlock(philo->print_lock);
 	return (NULL);
 }
