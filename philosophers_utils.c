@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:22:11 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 20:59:57 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:07:38 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void	ft_free(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data.philos_nb)
+	while (i < data->philos_nb)
 	{
-		pthread_join(data.philosophers[i], NULL);
-		pthread_mutex_destroy(&data.forks[i]);
+		pthread_join(data->philosophers[i], NULL);
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(data.print_lock);
-	pthread_mutex_destroy(data.philo_action);
+	pthread_mutex_destroy(data->print_lock);
+	pthread_mutex_destroy(data->philo_action);
 	free(data->forks);
 	free(data->philosophers);
 	free(data->philo);

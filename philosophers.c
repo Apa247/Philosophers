@@ -6,13 +6,13 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:40:38 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 21:00:30 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:06:58 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	innit_data(t_data *data, char **av, int ac)
+int	innit_data(t_data *data, char **av)
 {
 	data->philos_nb = ft_atoi_p(av[1]);
 	data->forks = malloc(sizeof(pthread_mutex_t) * (data->philos_nb));
@@ -75,7 +75,7 @@ int	create_threads(t_data *data, char **av)
 		if (!init_philo_params(data, av, i))
 			return (0);
 		if (pthread_create(&data->philosophers[i], NULL,
-				rutine, &data->philo[i]) < 0)
+				ft_philo_rutine, &data->philo[i]) < 0)
 			return (0);
 		i++;
 	}
@@ -115,12 +115,12 @@ int	main(int ac, char **av)
 	//atexit(func);
 	if (!check_args(ac, av))
 		return (printf("Error\n"), 1);
-	if (!innit_data(&data, av, ac))
+	if (!innit_data(&data, av))
 		return (printf("Malloc Error\n"), 1);
 	if (ac == 6)
-		data->lunchs_nb = ft_atoi_p(av[5]) * data->philos_nb;
+		data.lunchs_nb = ft_atoi_p(av[5]) * data.philos_nb;
 	else
-		data->lunchs_nb = -1;
+		data.lunchs_nb = -1;
 	if (!create_threads(&data, av))
 		return (ft_free(&data), 1);
 	father_loop(&data);

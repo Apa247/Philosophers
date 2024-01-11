@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:43:26 by daparici          #+#    #+#             */
-/*   Updated: 2024/01/11 20:56:21 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:06:16 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct data
 
 int			check_args(int ac, char **av);
 int			ft_atoi_p(char *str);
-int			innit_data(t_data *data, char **av, int ac);
+int			innit_data(t_data *data, char **av);
 void		ft_free(t_data *data);
 int			create_threads(t_data *data, char **av);
 int			init_philo_params(t_data *data, char **av, int i);
