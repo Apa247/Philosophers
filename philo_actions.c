@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daparici <daparici@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidaparicio <davidaparicio@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 21:41:31 by davidaparic       #+#    #+#             */
-/*   Updated: 2024/01/11 20:59:13 by daparici         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:55:32 by davidaparic      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_sleep(int time)
 
 	star_time = ft_get_time();
 	time_now = star_time;
-	while (star_time >= (time_now - time))
+	while (star_time > (time_now - time))
 	{
 		time_now = ft_get_time();
 		usleep(100);
